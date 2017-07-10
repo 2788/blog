@@ -23,7 +23,8 @@
         <![endif]-->
 
         <!-- Favicon and touch icons -->
-        <link rel="shortcut icon" href="/static/img/favicon.png">
+        <link rel="icon" href="/static/img/img_0101.jpg" type="image/x-icon">
+        <link rel="shortcut icon" href="/static/img_0101.jpg">
         <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/img/apple-touch-icon-144-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/img/apple-touch-icon-114-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/img/apple-touch-icon-72-precomposed.png">
@@ -40,13 +41,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-8 col-sm-offset-2 text">
-                            <h1><strong>Bootstrap</strong> Login Form</h1>
-                            <div class="description">
-                            	<p>
-	                            	This is a free responsive login form made with Bootstrap.
-	                            	Download it on <a href="http://azmind.com"><strong>AZMIND</strong></a>, customize and use it as you like!
-                            	</p>
-                            </div>
+                            <a href="/"><img src='/static/img/img_0101.jpg' class="img-circle" width="10%" height="10%"></a>
                         </div>
                     </div>
                     <div class="row">
@@ -66,18 +61,17 @@
                                 {{ form.non_field_errors }}
                                 <div class="fieldWrapper">
                                   {{ form.username.errors }}
+                                  {{ form.confirm_password.errors }}
                                   <label for="{{ form.username.id_for_label }}">账&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp号:</label>
-                                    {{ form.username }}
+                                  <input style="width: 80%" type="text" name="username" id="id_usrname" required minlength='6' maxlength="15" placeholder="6-15个数字或英文"  {%if form.username.value %} value="{{form.username.value}}" {%endif%}/></p>
                                   </div>
                                   <div class="fieldWrapper">
-                                    {{ form.password.errors }}
                                       <label for="{{ form.password.id_for_label }}">密&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp码:</label>
-                                      {{ form.password }}
+                                      <input style="width: 80%" type="password" name="password" id="id_password" required minlength='6' maxlength="15" placeholder="6-15个数字或英文" /></p>
                                   </div>
                                   <div class="fieldWrapper">
-                                      {{ form.confirm_password.errors }}
                                     <label for="{{ form.confirm_password.id_for_label }}">确认密码:</label>
-                                      {{ form.confirm_password }}
+                                    <input style="width: 80%" type="password" name="confirm_password" id="{{ form.confirm_password.id_for_label }}" required minlength='6' maxlength="15" placeholder="6-15个数字或英文" /></p>
                                   </div>
                                 <button type="submit" class="btn">Sign up!</button>
                               </form>
@@ -88,27 +82,10 @@
 		                    </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-6 col-sm-offset-3 social-login">
-                        	<h3>...or login with:</h3>
-                        	<div class="social-login-buttons">
-	                        	<a class="btn btn-link-1 btn-link-1-facebook" href="#">
-	                        		<i class="fa fa-facebook"></i> Facebook
-	                        	</a>
-	                        	<a class="btn btn-link-1 btn-link-1-twitter" href="#">
-	                        		<i class="fa fa-twitter"></i> Twitter
-	                        	</a>
-	                        	<a class="btn btn-link-1 btn-link-1-google-plus" href="#">
-	                        		<i class="fa fa-google-plus"></i> Google Plus
-	                        	</a>
-                        	</div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
         </div>
-
 
         <!-- Javascript -->
         <script src="/static/js/jquery-1.11.1.min.js"></script>

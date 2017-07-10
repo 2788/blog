@@ -58,8 +58,8 @@ class SignupForm(forms.ModelForm):
         raise forms.ValidationError("有人已经注册了这个用户名")
 
 class SigninForm(forms.Form):
-    username = forms.CharField(required=True,error_messages={'required':'请填入用户名啊!','max_length':'最多只能输入15个字符','min_length':'至少输入3个字符'},max_length=15,min_length=6,widget=forms.TextInput(attrs={'placeholder':'6~20位字母/数字/汉字'}))
-    password = forms.CharField(required=True,error_messages={'required': '请填写你的密码','max_length':'最多输入20个字符','min_length':'最少6个字符'},widget=forms.TextInput(attrs={'placeholder':'6~20位字母/数字'}))
+    username = forms.CharField(required=True,error_messages={'required':'请填入用户名啊!','max_length':'最多只能输入15个字符','min_length':'至少输入3个字符'})
+    password = forms.CharField(required=True,error_messages={'required': '请填写你的密码','max_length':'最多输入20个字符','min_length':'最少6个字符'})
 
     def clean_username(self):
         username = self.cleaned_data['username']

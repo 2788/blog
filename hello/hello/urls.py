@@ -19,12 +19,12 @@ from blog.views import blog_index,signup,signin,logout_view,edit, edit_num, page
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^blog/$', blog_index, name='blog_index'),
+    url(r'^$',blog_view,name='home'),
     url(r'^signin/$', signin, name='signin'),
     url(r'^signup/$', signup, name='signup'),
     url(r'^logout/$', logout_view, name='logout_view'),
     url(r'^edit/$', edit, name='edit'),
-    url(r'^blog/(?P<blog_number>\d+)$', blog_view,name = "blog"),
+    url(r'^(?P<blog_number>\d+)$', blog_view,name = "blog"),
     url(r'^page/(?P<page_number>\d+)$', page_view,name = "page"),
     url(r'^edit/(?P<page_id>\d+)$', edit_num,name = "edit_num"),
     url(r'^delete/(?P<page_id>\d+)$', delete,name = "delete"),

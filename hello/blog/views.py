@@ -10,8 +10,8 @@ from django.core.paginator import  Paginator
 import logging
 # Create your views here.
 
-def blog_view(request,blog_number = '1'):
-    blog = Article.objects.order_by("create_date")
+def blog_view(request,blog_number = '1'):#主页面{数字}
+    blog = Article.objects.order_by("-modiify_date")
     page_number = int(blog_number)
     page = Paginator(blog,5)
     page = page.page(page_number)
@@ -20,7 +20,7 @@ def blog_view(request,blog_number = '1'):
     page_list = page.object_list
     return render(request, 'index.html', {'page':page,'page_list':page_list,'pre':previous,'next':next})
 
-def page_view(request, page_number ='1'):
+def page_view(request, page_number ='1'):#博客文章{数字}
     page_id = int(page_number)
     if request.method == 'POST':
         form = CommentForm(data=request.POST,auto_id='%s')
@@ -46,7 +46,7 @@ def page_view(request, page_number ='1'):
 
 
 def blog_index(request):
-    return redirect('/blog/1')
+    return redirect('/1')
 
 def signup(request):
     if request.method =='POST':
@@ -59,7 +59,7 @@ def signup(request):
             user.save()
             auth = authenticate(username=username, password=password)
             login(request,auth)
-            return redirect('/blog/')
+            return redirect('/')
     else :
         form = SignupForm()
     return render(request,'signup.html', {'form':form})
@@ -72,16 +72,18 @@ def signin(request):
             password = form.cleaned_data['password']
             user = authenticate(username=username, password=password)
             login(request,user)
-            return redirect('/blog/')
+            return redirect('/')
     else:
         form = SigninForm()
     return render(request, 'signin.html', {'form':form})
 
 def logout_view(request):
     logout(request)
-    return redirect('/blog')
+    return redirect('/')
 
 def edit_num(request, page_id = '0'):
+    if not request.user.is_authenticated():
+        return redirect('/')
     page_id = int(page_id)
     if request.method == 'POST':
         form = BlogForm(data=request.POST,auto_id='%s')
@@ -91,11 +93,11 @@ def edit_num(request, page_id = '0'):
             content =  form.cleaned_data['content']
             time = datetime.datetime.now()
             if not page_id == 0:
-                Article.objects.filter(id=page_id).update(title=title, summary = summary ,content = content,create_date=time,modiify_date=time ,is_show =True )
+                Article.objects.filter(id=page_id).update(title=title, summary = summary ,content = content,modiify_date=time ,is_show =True )
             else:
                 article=Article.objects.create(title=title, summary = summary ,content = content,create_date=time,modiify_date=time ,is_show =True )
                 article.save()
-            return redirect('/blog/')
+            return redirect('/')
     else:
         if not page_id == 0:
             blog = Article.objects.get(id=page_id)
@@ -107,6 +109,8 @@ def edit_num(request, page_id = '0'):
 
 
 def edit(request):
+    if not request.user.is_authenticated():
+        return redirect('/')
     if request.method  == 'POST' :
         form = BlogForm(data=request.POST , auto_id='%s')
         if form.is_valid():
@@ -116,7 +120,7 @@ def edit(request):
             time = datetime.datetime.now()
             article=Article.objects.create(title=title, summary = summary ,content = content,create_date=time,modiify_date=time ,is_show =True )
             article.save()
-            return redirect('/blog/')
+            return redirect('/')
     else:
         form = BlogForm()
     return render(request,'edit.html',{'form':form})
@@ -124,4 +128,4 @@ def edit(request):
 def delete(request,page_id):
     page_id = int(page_id)
     Article.objects.filter(id=page_id).delete()
-    return redirect('/blog/1')
+    return redirect('/')

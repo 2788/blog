@@ -6,8 +6,8 @@ from django.contrib.auth.models import AbstractUser
 class Article(models.Model):
     title = models.CharField(max_length=50)
     summary = models.CharField(max_length=150)
-    create_date = models.DateField(auto_now_add=True)
-    modiify_date = models.DateField(auto_now=True)
+    create_date = models.DateTimeField(auto_now_add=True)
+    modiify_date = models.DateTimeField(auto_now=True)
     content = models.TextField()
     is_show = models.BooleanField()
 

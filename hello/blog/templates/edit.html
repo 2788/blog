@@ -1,10 +1,167 @@
 {% load  staticfiles %}
 
 <html>
-<form action="/edit/{{p_id}}" method="post">
-{% csrf_token %}
-{{form}}
-<input type="submit" value="submit">
-  </form>
+<head>
 
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="">
+      <meta name="author" content="">
+
+      <title>Blog</title>
+
+      <!-- Bootstrap Core CSS -->
+      <link href="{% static "vendor/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+
+      <!-- Theme CSS -->
+      <link href="{% static "css/clean-blog.min.css" %}" rel="stylesheet">
+
+      <!-- Custom Fonts -->
+      <link href="{% static "vendor/font-awesome/css/font-awesome.min.css" %}" rel="stylesheet" type="text/css">
+      <link href="{% static 'https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' %}" rel='stylesheet' type='text/css'>
+      <link href="{% static 'https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' %}" rel='stylesheet' type='text/css'>
+
+      <link rel="icon" href="/static/img/img_0101.jpg" type="image/x-icon">
+      <link rel="shortcut icon" href="/static/img_0101.jpg">
+      <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+      <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+
+</head>
+<body>
+
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+      <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header page-scroll">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  Menu <i class="fa fa-bars"></i>
+              </button>
+              <a class="navbar-brand" href="/">
+                {% if user.is_authenticated %}{{user}}{%endif%}
+              </a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                {% if user.is_superuser %}
+                <li>
+                    <a href="/edit/">post</a>
+                </li>
+                {% endif %}
+
+                {% if user.is_authenticated %}
+                <li>
+                    <a href="/logout/">logout</a>
+                </li>
+                {% else %}
+                <li>
+                   <a href="/signin/">signin</a>
+                 </li>
+                 <li>
+                   <a href="/signup/">signup</a>
+                 </li>
+                 {% endif %}
+            </ul>
+          </div>
+          <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container -->
+  </nav>
+
+  <!-- Page Header -->
+  <header class="header" style="background-image: url('/static/img/logo.png')">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  <div class="site-heading">
+                      <h1 style="text-align:center;color:white">Dog's  Blog</h1>
+                      <hr class="small">
+                      <p>&nbsp</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </header>
+
+
+<!-- content-->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          <br/>
+  <form action="/edit/{{p_id}}" method="post" class="form-horizontal">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="{{ form.title.id_for_label }}" class="col-sm-2 control-label">标&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp题:</label>
+      <div class="col-sm-10">
+          <input type="text" class="form-control" name="title" id="id_title" {%if form.title.value %} value="{{form.title.value}}"{%endif%} />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="{{ form.summary.id_for_label }}" class="col-sm-2 control-label">摘&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp要:</label>
+      <div class="col-sm-10">
+          <input type="text" class="form-control" name="summary" id="id_summary" {%if form.summary.value %} value="{{form.summary.value}}"{%endif%} />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="{{ form.content.id_for_label }}" class="col-sm-2 control-label">正&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp文:</label>
+      <div class="col-sm-10">
+          <textarea class="form-control" name="content" id="id_content" rows='10'required minlength="1" />{% if form.content.value %}{{form.content.value}}{%endif%}</textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">确定</button>
+      </div>
+    </div>
+  </form>
+</div>
+</div>
+</div>
+
+
+<!---    编辑器   -->
+<script type="text/javascript" src="/static/tinymce_4.5.0/jquery.tinymce.min.js"></script>
+<script type="text/javascript" src="/static/tinymce_4.5.0/tinymce.min.js"></script>
+<script language="javascript" type="text/javascript">
+tinymce.init({
+  selector: '#id_content',
+  menubar : false,
+mode :"exact",
+elements:"content",
+autoresize_min_height:300,
+nowrap : false ,
+language : 'zh_CN',
+relative_urls : false,
+remove_script_host : true,
+default_link_target: "_blank",
+plugins: [
+       "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+       "searchreplace  visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+       "save  contextmenu directionality emoticons template  textcolor",
+       "paste autoresize media codesample",
+ ],
+
+
+
+ toolbar: "insertfile undo redo |  bold italic forecolor | alignleft aligncenter alignright alignjustify | link image |  code  preview  |  codesample",
+
+
+
+});
+
+
+
+</script>
+</body>
 </html>
