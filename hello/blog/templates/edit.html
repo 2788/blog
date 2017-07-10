@@ -11,6 +11,16 @@
 
       <title>Blog</title>
 
+      <!-- Include external CSS. -->
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
+
+      <!-- Include Editor style. -->
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_style.min.css" rel="stylesheet" type="text/css" />
+      <link href="/static/editor/css/froala_style.min.css" rel="stylesheet" type="text/css" />
+
+
       <!-- Bootstrap Core CSS -->
       <link href="{% static "vendor/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
 
@@ -131,37 +141,15 @@
 
 
 <!---    编辑器   -->
-<script type="text/javascript" src="/static/tinymce_4.5.0/jquery.tinymce.min.js"></script>
-<script type="text/javascript" src="/static/tinymce_4.5.0/tinymce.min.js"></script>
-<script language="javascript" type="text/javascript">
-tinymce.init({
-  selector: '#id_content',
-  menubar : false,
-mode :"exact",
-elements:"content",
-autoresize_min_height:300,
-nowrap : false ,
-language : 'zh_CN',
-relative_urls : false,
-remove_script_host : true,
-default_link_target: "_blank",
-plugins: [
-       "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
-       "searchreplace  visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-       "save  contextmenu directionality emoticons template  textcolor",
-       "paste autoresize media codesample",
- ],
+<!-- Include external JS libs. -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+<!-- Include Editor JS files. -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/js/froala_editor.pkgd.min.js"></script>
 
 
-
- toolbar: "insertfile undo redo |  bold italic forecolor | alignleft aligncenter alignright alignjustify | link image |  code  preview  |  codesample",
-
-
-
-});
-
-
-
-</script>
+<script> $(function() { $('textarea').froalaEditor({language: 'zh_cn'}) }); </script>
+<script src='/static/editor/js/languages/zh_cn.js'></script>
 </body>
 </html>
